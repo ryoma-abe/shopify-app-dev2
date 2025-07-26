@@ -32,3 +32,13 @@ export function getQRCodeImage(id) {
 }
 
 
+export function getDestinationUrl(qrCode) {
+  if (qrCode.destination === "product") {
+    return `https://${qrCode.shop}/products/${qrCode.productHandle}`;
+  }
+
+  const match = /gid:\/\/shopify\/ProductVariant\/([0-9]+)/.exec(qrCode.productVariantId);
+  invariant(match, "Unrecognized product variant ID");
+
+  return `https://${qrCode.shop}/cart/${match[1]}:1`;
+}
