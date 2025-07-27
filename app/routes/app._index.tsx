@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher } from "@remix-run/react";
+import { json, useFetcher } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -15,11 +15,14 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import { getQRCodes } from "../models/QRCode.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticate.admin(request);
-
-  return null;
+  const { admin, session } = await authenticate.admin(request);
+  const qrCodes = await getQRCodes(session.shop, admin.graphql);
+  return json({
+    qrCodes,
+  });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
