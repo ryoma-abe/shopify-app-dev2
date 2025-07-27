@@ -3,7 +3,7 @@
 client_id = "1d7ea556dbf8ac509ca47c4cf7a87788"
 name = "dev-app"
 handle = "dev-app-228"
-application_url = "https://june-ky-bulgaria-dates.trycloudflare.com"
+application_url = "https://mozilla-connect-amazing-deal.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://june-ky-bulgaria-dates.trycloudflare.com/auth/callback",
-  "https://june-ky-bulgaria-dates.trycloudflare.com/auth/shopify/callback",
-  "https://june-ky-bulgaria-dates.trycloudflare.com/api/auth/callback"
+  "https://mozilla-connect-amazing-deal.trycloudflare.com/auth/callback",
+  "https://mozilla-connect-amazing-deal.trycloudflare.com/auth/shopify/callback",
+  "https://mozilla-connect-amazing-deal.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
