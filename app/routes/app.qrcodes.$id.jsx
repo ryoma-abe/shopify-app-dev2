@@ -47,14 +47,19 @@ export async function loader({ request, params }) {
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
   const { shop } = session;
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
   /** @type {any} */
   const data = {
     ...Object.fromEntries(await request.formData()),
     shop,
+    expiresAt,
   };
 
   if (data.action === "delete") {
+    // 関連するScanLogを先に削除
+    await db.scanLog.deleteMany({ where: { qrcodeId: Number(params.id) } });
+    // その後QRCodeを削除
     await db.qRCode.delete({ where: { id: Number(params.id) } });
     return redirect("/app");
   }
@@ -233,6 +238,7 @@ export default function QRCodeForm() {
                 Your QR code will appear here after you save
               </EmptyState>
             )}
+            <p>有効期限は{new Date(qrCode.expiresAt).toLocaleString("ja-JP")}です</p>
             <BlockStack gap="300">
               <Button
                 disabled={!qrCode?.image}
