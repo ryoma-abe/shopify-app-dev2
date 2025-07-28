@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "ScanLog" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "qrcodeId" INTEGER NOT NULL,
+    "scannedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userAgent" TEXT,
+    "ipAddress" TEXT,
+    CONSTRAINT "ScanLog_qrcodeId_fkey" FOREIGN KEY ("qrcodeId") REFERENCES "QRCode" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
