@@ -40,4 +40,15 @@ model QRCode {
   destination      String
   scans            Int      @default(0)
   createdAt        DateTime @default(now())
+    scanLogs         ScanLog[]
+}
+
+model ScanLog {
+  id        Int      @id @default(autoincrement())
+  qrcodeId  Int
+  scannedAt DateTime @default(now())
+  userAgent String?
+  ipAddress String?
+
+  QRCode QRCode @relation(fields: [qrcodeId], references: [id])
 }
