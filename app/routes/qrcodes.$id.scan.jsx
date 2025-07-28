@@ -16,7 +16,6 @@ export const loader = async ({ params, request }) => {
     where: { id },
     data: { scans: { increment: 1 } },
   });
-  console.log(Object.keys(db));
 
   const userAgent = request.headers.get("user-agent") || "unknown";
   const ipAddress =
