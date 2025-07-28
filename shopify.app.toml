@@ -3,7 +3,7 @@
 client_id = "1d7ea556dbf8ac509ca47c4cf7a87788"
 name = "dev-app"
 handle = "dev-app-228"
-application_url = "https://asia-logging-fine-inches.trycloudflare.com"
+application_url = "https://restored-soon-notifications-accommodation.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://asia-logging-fine-inches.trycloudflare.com/auth/callback",
-  "https://asia-logging-fine-inches.trycloudflare.com/auth/shopify/callback",
-  "https://asia-logging-fine-inches.trycloudflare.com/api/auth/callback"
+  "https://restored-soon-notifications-accommodation.trycloudflare.com/auth/callback",
+  "https://restored-soon-notifications-accommodation.trycloudflare.com/auth/shopify/callback",
+  "https://restored-soon-notifications-accommodation.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
