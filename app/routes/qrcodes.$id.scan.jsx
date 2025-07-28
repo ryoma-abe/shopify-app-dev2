@@ -16,13 +16,22 @@ export const loader = async ({ params, request }) => {
     where: { id },
     data: { scans: { increment: 1 } },
   });
+  console.log(Object.keys(db));
+
+  const userAgent = request.headers.get("user-agent") || "unknown";
+  const ipAddress =
+    request.headers.get("x-forwarded-for") ||
+    request.headers.get("x-real-ip") ||
+    "unknown";
+
   await db.scanLog.create({
     data: {
       qrcodeId: id,
-      userAgent: request.headers.get("user-agent") || "unknown",
-      ipAddress: request.headers.get("x-forwarded-for") || "unknown",
+      userAgent: userAgent.replace(/[^\x00-\x7F]/g, "?"),
+      ipAddress: ipAddress.replace(/[^\x00-\x7F]/g, "?"),
     },
   });
 
-  return redirect(getDestinationUrl(qrCode));
+  const destinationUrl = getDestinationUrl(qrCode);
+  return redirect(encodeURI(destinationUrl));
 };
