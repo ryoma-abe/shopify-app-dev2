@@ -1,13 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "sqlite"
   url      = "file:dev.sqlite"
@@ -30,17 +24,19 @@ model Session {
   collaborator  Boolean?  @default(false)
   emailVerified Boolean?  @default(false)
 }
+
 model QRCode {
-  id               Int      @id @default(autoincrement())
+  id               Int       @id @default(autoincrement())
   title            String
   shop             String
   productId        String
   productHandle    String
   productVariantId String
   destination      String
-  scans            Int      @default(0)
-  createdAt        DateTime @default(now())
-    scanLogs         ScanLog[]
+  scans            Int       @default(0)
+  createdAt        DateTime  @default(now())
+  expiresAt        DateTime  @default(now())
+  scanLogs         ScanLog[]
 }
 
 model ScanLog {
@@ -49,6 +45,5 @@ model ScanLog {
   scannedAt DateTime @default(now())
   userAgent String?
   ipAddress String?
-
-  QRCode QRCode @relation(fields: [qrcodeId], references: [id])
+  QRCode    QRCode   @relation(fields: [qrcodeId], references: [id])
 }
