@@ -3,6 +3,7 @@ import invariant from "tiny-invariant";
 import db from "../db.server";
 
 import { getDestinationUrl } from "../models/QRCode.server";
+import { log } from "console";
 
 export const loader = async ({ params, request }) => {
   invariant(params.id, "Could not find QR code destination");
@@ -11,6 +12,10 @@ export const loader = async ({ params, request }) => {
   const qrCode = await db.qRCode.findFirst({ where: { id } });
 
   invariant(qrCode, "Could not find QR code destination");
+
+  if (qrCode.expiresAt && new Date() > new Date(qrCode.expiresAt)) {
+    return new Response("有効期限切れです", { status: 410 });
+  }
 
   await db.qRCode.update({
     where: { id },
