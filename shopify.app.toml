@@ -3,7 +3,7 @@
 client_id = "1d7ea556dbf8ac509ca47c4cf7a87788"
 name = "dev-app"
 handle = "dev-app-228"
-application_url = "https://popularity-saves-matter-parcel.trycloudflare.com"
+application_url = "https://nowhere-somalia-fri-feof.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://popularity-saves-matter-parcel.trycloudflare.com/auth/callback",
-  "https://popularity-saves-matter-parcel.trycloudflare.com/auth/shopify/callback",
-  "https://popularity-saves-matter-parcel.trycloudflare.com/api/auth/callback"
+  "https://nowhere-somalia-fri-feof.trycloudflare.com/auth/callback",
+  "https://nowhere-somalia-fri-feof.trycloudflare.com/auth/shopify/callback",
+  "https://nowhere-somalia-fri-feof.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
