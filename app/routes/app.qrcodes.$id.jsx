@@ -1,4 +1,4 @@
-import { json, redirect } from "@remix-run/node";
+import { data, json, redirect } from "@remix-run/node";
 import { ImageIcon } from "@shopify/polaris-icons";
 import { authenticate } from "../shopify.server";
 import db from "../db.server";
@@ -27,6 +27,7 @@ import {
   Thumbnail,
   BlockStack,
   PageActions,
+  Badge,
 } from "@shopify/polaris";
 // ローダー関数
 export async function loader({ request, params }) {
@@ -228,9 +229,16 @@ export default function QRCodeForm() {
         </Layout.Section>
         <Layout.Section variant="oneThird">
           <Card>
-            <Text as={"h2"} variant="headingLg">
-              QR code
-            </Text>
+            <InlineStack align="space-between" blockAlign="center">
+              <Text as="h2" variant="headingLg">
+                QR code
+              </Text>
+              {qrCode.expiresAt && new Date(qrCode.expiresAt) < new Date() ? (
+                <Badge tone="critical">有効期限切れ</Badge>
+              ) : (
+                <Badge tone="success">有効</Badge>
+              )}
+            </InlineStack>
             {qrCode ? (
               <EmptyState image={qrCode.image} imageContained={true} />
             ) : (
@@ -238,7 +246,6 @@ export default function QRCodeForm() {
                 Your QR code will appear here after you save
               </EmptyState>
             )}
-            <p>有効期限は{new Date(qrCode.expiresAt).toLocaleString("ja-JP")}です</p>
             <BlockStack gap="300">
               <Button
                 disabled={!qrCode?.image}
